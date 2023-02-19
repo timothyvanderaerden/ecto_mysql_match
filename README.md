@@ -5,7 +5,7 @@
 [![Module Version](https://img.shields.io/hexpm/v/ecto_mysql_match.svg)](https://hex.pm/packages/ecto_mysql_match)
 [![Hex Docs](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://hexdocs.pm/ecto_mysql_match/)
 [![Total Download](https://img.shields.io/hexpm/dt/ecto_mysql_match.svg)](https://hex.pm/packages/ecto_mysql_match)
-[![License](https://img.shields.io/hexpm/l/ecto_mysql_match.svg)](https://github.com/timothyvanderaerden/ecto_mysql_match/blob/master/LICENSE)
+[![License](https://img.shields.io/hexpm/l/ecto_mysql_match.svg)](https://github.com/timothyvanderaerden/ecto_mysql_match/blob/main/LICENSE)
 [![Last Updated](https://img.shields.io/github/last-commit/timothyvanderaerden/ecto_mysql_match.svg)](https://github.com/timothyvanderaerden/ecto_mysql_match/commits/main)
 
 Use MySQL match to enable fulltext search on one or more columns.
