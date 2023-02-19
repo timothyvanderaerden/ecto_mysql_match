@@ -58,7 +58,9 @@ Once the index has been created you can use it in an Ecto query:
 import Ecto.Query
 import EctoMySQLMatch
 
-query = from(p in "posts", where: match([p.title, p.description], "another"), select: p.title)
+from(p in "posts", where: match(p.title, "another"), select: p.title)
+
+from(p in "posts", where: match([p.title, p.description], "another"), select: p.title)
 ```
 
 ## Resources
