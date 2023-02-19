@@ -16,15 +16,15 @@ defmodule EctoMySQLMatch do
       from(p in "posts", where: match([p.title, p.description], "some"), select: p.title)
 
   """
-  defmacro match(fields, search_string) when is_list(fields) do
+  defmacro match(fields, search_modifier) when is_list(fields) and is_binary(search_modifier) do
     quote do
-      fragment(unquote(match_query(fields)), unquote_splicing(fields), unquote(search_string))
+      fragment(unquote(match_query(fields)), unquote_splicing(fields), unquote(search_modifier))
     end
   end
 
-  defmacro match(field, search_string) do
+  defmacro match(field, search_modifier) when is_binary(search_modifier) do
     quote do
-      fragment(unquote(match_query(field)), unquote(field), unquote(search_string))
+      fragment(unquote(match_query(field)), unquote(field), unquote(search_modifier))
     end
   end
 
