@@ -15,7 +15,7 @@ defmodule EctoMySQLMatchTest do
                 expr: :title,
                 raw: ") AGAINST (",
                 expr: "some title",
-                raw: ")"
+                raw: ") IN NATURAL LANGUAGE MODE"
               ]} == hd(query.wheres).expr
 
       query = from(p in "posts", where: match(p.title, "some title"))
@@ -26,7 +26,7 @@ defmodule EctoMySQLMatchTest do
                 expr: {{:., [], [{:&, [], [0]}, :title]}, [], []},
                 raw: ") AGAINST (",
                 expr: "some title",
-                raw: ")"
+                raw: ") IN NATURAL LANGUAGE MODE"
               ]} == hd(query.wheres).expr
     end
 
@@ -41,7 +41,7 @@ defmodule EctoMySQLMatchTest do
                 {:expr, :description},
                 {:raw, ") AGAINST ("},
                 {:expr, "some title"},
-                {:raw, ")"}
+                {:raw, ") IN NATURAL LANGUAGE MODE"}
               ]} == hd(query.wheres).expr
 
       query = from(p in "posts", where: match([p.title, p.description], "some title"))
@@ -56,7 +56,7 @@ defmodule EctoMySQLMatchTest do
                  {:expr, {{:., [], [{:&, [], [0]}, :description]}, [], []}},
                  {:raw, ") AGAINST ("},
                  {:expr, "some title"},
-                 {:raw, ")"}
+                 {:raw, ") IN NATURAL LANGUAGE MODE"}
                ]
              } == hd(query.wheres).expr
     end
@@ -70,7 +70,7 @@ defmodule EctoMySQLMatchTest do
                 {:expr, :title},
                 {:raw, ") AGAINST ("},
                 {:expr, "some title"},
-                {:raw, ")"}
+                {:raw, ") IN NATURAL LANGUAGE MODE"}
               ]} == hd(query.wheres).expr
 
       query = from(p in "posts", where: match([p.title], "some title"))
@@ -81,8 +81,25 @@ defmodule EctoMySQLMatchTest do
                 {:expr, {{:., [], [{:&, [], [0]}, :title]}, [], []}},
                 {:raw, ") AGAINST ("},
                 {:expr, "some title"},
-                {:raw, ")"}
+                {:raw, ") IN NATURAL LANGUAGE MODE"}
               ]} == hd(query.wheres).expr
+    end
+
+    test "match/2 returns valid query with query expansion" do
+      query =
+        from(p in "posts", where: match(:title, "some title", search_modifier: :query_expansion))
+
+      assert Macro.to_string(hd(query.wheres).expr) =~ "WITH QUERY EXPANSION"
+    end
+
+    test "match/2 returns valid query with natural query expansion" do
+      query =
+        from(p in "posts",
+          where: match(:title, "some title", search_modifier: :natural_with_query_expansion)
+        )
+
+      assert Macro.to_string(hd(query.wheres).expr) =~
+               "IN NATURAL LANGUAGE MODE WITH QUERY EXPANSION"
     end
   end
 
