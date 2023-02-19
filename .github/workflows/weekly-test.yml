@@ -77,10 +77,6 @@ jobs:
       - name: Checkout commit
         uses: actions/checkout@v3
 
-      - name: Initialize database
-        run: |
-          mysql -uroot -p${{ env.MYSQL_ROOT_PASSWORD }} -h127.0.0.1 < docker/init/init.sql
-
       - name: Setup Elixir
         uses: erlef/setup-beam@v1
         with:
