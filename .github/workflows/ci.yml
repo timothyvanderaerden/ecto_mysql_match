@@ -181,13 +181,12 @@ jobs:
           key: ${{ runner.os }}-${{ matrix.version.otp }}-${{ matrix.version.elixir }}-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
 
       - name: Run tests
-        run: mix test
+        run: mix test  --only integration
 
   test_coverage:
     name: Test Coverage / OTP ${{ matrix.otp }} / Elixir ${{ matrix.elixir }}
     runs-on: ubuntu-20.04
     if: ${{ github.actor != 'dependabot[bot]' }}
-    needs: [test]
     strategy:
       fail-fast: false
       matrix:
