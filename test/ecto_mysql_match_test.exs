@@ -60,6 +60,30 @@ defmodule EctoMySQLMatchTest do
                ]
              } == hd(query.wheres).expr
     end
+
+    test "match/2 returns valid query and list with one field" do
+      query = from(p in "posts", where: match([:title], "some title"))
+
+      assert {:fragment, [],
+              [
+                {:raw, "MATCH ("},
+                {:expr, :title},
+                {:raw, ") AGAINST ("},
+                {:expr, "some title"},
+                {:raw, ")"}
+              ]} == hd(query.wheres).expr
+
+      query = from(p in "posts", where: match([p.title], "some title"))
+
+      assert {:fragment, [],
+              [
+                {:raw, "MATCH ("},
+                {:expr, {{:., [], [{:&, [], [0]}, :title]}, [], []}},
+                {:raw, ") AGAINST ("},
+                {:expr, "some title"},
+                {:raw, ")"}
+              ]} == hd(query.wheres).expr
+    end
   end
 
   describe "integrated tests" do
