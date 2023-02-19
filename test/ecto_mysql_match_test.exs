@@ -15,7 +15,7 @@ defmodule EctoMySQLMatchTest do
                 expr: :title,
                 raw: ") AGAINST (",
                 expr: "some title",
-                raw: ") IN NATURAL LANGUAGE MODE"
+                raw: " IN NATURAL LANGUAGE MODE)"
               ]} == hd(query.wheres).expr
 
       query = from(p in "posts", where: match(p.title, "some title"))
@@ -26,7 +26,7 @@ defmodule EctoMySQLMatchTest do
                 expr: {{:., [], [{:&, [], [0]}, :title]}, [], []},
                 raw: ") AGAINST (",
                 expr: "some title",
-                raw: ") IN NATURAL LANGUAGE MODE"
+                raw: " IN NATURAL LANGUAGE MODE)"
               ]} == hd(query.wheres).expr
     end
 
@@ -41,7 +41,7 @@ defmodule EctoMySQLMatchTest do
                 {:expr, :description},
                 {:raw, ") AGAINST ("},
                 {:expr, "some title"},
-                {:raw, ") IN NATURAL LANGUAGE MODE"}
+                {:raw, " IN NATURAL LANGUAGE MODE)"}
               ]} == hd(query.wheres).expr
 
       query = from(p in "posts", where: match([p.title, p.description], "some title"))
@@ -56,7 +56,7 @@ defmodule EctoMySQLMatchTest do
                  {:expr, {{:., [], [{:&, [], [0]}, :description]}, [], []}},
                  {:raw, ") AGAINST ("},
                  {:expr, "some title"},
-                 {:raw, ") IN NATURAL LANGUAGE MODE"}
+                 {:raw, " IN NATURAL LANGUAGE MODE)"}
                ]
              } == hd(query.wheres).expr
     end
@@ -70,7 +70,7 @@ defmodule EctoMySQLMatchTest do
                 {:expr, :title},
                 {:raw, ") AGAINST ("},
                 {:expr, "some title"},
-                {:raw, ") IN NATURAL LANGUAGE MODE"}
+                {:raw, " IN NATURAL LANGUAGE MODE)"}
               ]} == hd(query.wheres).expr
 
       query = from(p in "posts", where: match([p.title], "some title"))
@@ -81,7 +81,7 @@ defmodule EctoMySQLMatchTest do
                 {:expr, {{:., [], [{:&, [], [0]}, :title]}, [], []}},
                 {:raw, ") AGAINST ("},
                 {:expr, "some title"},
-                {:raw, ") IN NATURAL LANGUAGE MODE"}
+                {:raw, " IN NATURAL LANGUAGE MODE)"}
               ]} == hd(query.wheres).expr
     end
 

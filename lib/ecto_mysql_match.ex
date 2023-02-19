@@ -41,7 +41,7 @@ defmodule EctoMySQLMatch do
     match_params = match_params(field_or_fields)
     search_modifier = search_modifier(opts)
 
-    "MATCH (#{match_params}) AGAINST (?) #{search_modifier}"
+    "MATCH (#{match_params}) AGAINST (? #{search_modifier})"
   end
 
   defp match_params(fields) when is_list(fields) do
