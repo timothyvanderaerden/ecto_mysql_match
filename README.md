@@ -12,9 +12,8 @@ Use MySQL match to enable fulltext search on one or more columns.
 
 ### Todo
 
-- [ ] Support `WITH QUERY EXPANSION`
-- [ ] Support `IN BOOLEAN MODE`
-- [ ] Improve docs (examples) and tests
+- Support `IN BOOLEAN MODE`
+- Improve docs (examples) and tests
 
 ## Installation
 
@@ -30,7 +29,7 @@ end
 
 ## Usage
 
-To enable fulltext search you must first add the `FULLTEXT` index on one our more columns.
+To enable fulltext search you must first add the `FULLTEXT` index on one our more columns. The index can only be set on text columns: `char`, `varchar` and `text`.
 
 To add during table creation:
 ```sql
